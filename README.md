@@ -13,3 +13,9 @@ Prerequisites
 
 Install
 - npm install
+
+TODO
+- Host Site to allow node.js module browserify to run stemming algorithm.
+- Create Term-Frequency Matrix
+- Append Quality Scores
+- Resort Search Results According to Quality Scores
