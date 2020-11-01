@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+
+<head>
+    <title></title>
+    <style>
+        #searchbox {
+            float: left;
+            width: 75%;
+        }
+
+        #leftbox {
+            float: left;
+            background: white;
+            width: 75%;
+            height: 280px;
+        }
+
+        #rightbox {
+            float: right;
+            background: white;
+            width: 25%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script async src="https://cse.google.com/cse.js?cx=c4bb168513ae765b0"></script>
+    <div id="searchbox" class="gcse-searchbox"></div>
+    <div id="leftbox" class="gcse-searchresults" enableAutoComplete="true"></div>
+    <div id="rightbox">
+        <h2>WordBar</h2>
+
+        <!-- Custom Search JSON API Example -->
+        <!-- Note to self, api key, cx for specific search engine, and query q for results -->
+        <div id="content"></div>
+        <script>
+
+
+            function hndlr(response) {
+
+                // for (var i = 0; i < response.items.length; i++) {
+
+
+                //Length is 3 
+                //When testing for ease of use
+                for (var i = 0; i < 3; i++) {
+
+                    var item = response.items[i];
+                    // in production code, item.htmlTitle should have the HTML entities escaped.
+                    console.log(item); // Note json object is found in console
+
+                    // Prints title,snippet,link to the html
+                    document.getElementById("content").innerHTML += "<br>" + item.htmlTitle;
+                    // document.getElementById("content").innerHTML += "<br>" + item.snippet;
+                    // document.getElementById("content").innerHTML += "<br>" + item.link + "<br>";
+
+                    string = item.htmlTitle;
+                    console.log(string);
+
+                    //Lowercasing is one of the simplest and most effective form of text preprocessing.
+                    //Lowercasing solves the sparsity issue, where the same words with different cases
+                    //map to the same lowercase form.
+                    string = string.toLowerCase();
+                    console.log("Lower Case")
+                    console.log(string);
+
+
+                    //Noise Removal
+                    //ie. ..., <, >, etc
+                    //Issue with removing Vertical Bars ie. |
+                    for (j = 0; j < format.length; j++) {
+                        var oldRegEx = new RegExp(format[i], 'g')
+                        string = string.replace(oldRegEx, '')
+
+                    }
+                    console.log("Noise Removal")
+                    console.log(string);
+
+
+                    // //Stemming
+                    // //Process of reducing inflection in words to their root form.
+                    // //Porter stemming algorithm
+                    // var toSplit = string;
+                    // var toStem = toSplit.split(" ");
+                    // console.log(toStem);
+                    // for(s = 0; s < toStem.length; s++){
+                    //     toStem[i] = stemmer(toStem[i]);
+                    // }
+
+                    // console.log(toStem);
+                    // string = toStem.join(" ");
+                    // console.log(string);
+
+
+                    //Stopword Removal
+                    //Stop words are a set of commonly used words in a language.
+                    //Removal of these allows for more effective search and topic extraction systems
+
+                    for (k = 0; k < stop_words.length; k++) {
+                        var oldRegEx = new RegExp("\\b" + stop_words[i] + "\\b", 'g')
+                        string = string.replace(oldRegEx, '')
+
+                    }
+                    console.log("StopWord Removal")
+                    console.log(string);
+
+
+
+                    var pattern = /\w+/g,
+                        // /\w+ meaches any alphanumeric character from basic Latin alphabet including uderscore.
+                        // Equivalent to [A-Za-z0-9]. 
+                    matchedWords = string.match(pattern);
+                    console.log(matchedWords);
+
+
+
+                    var counts = matchedWords.reduce(function (stats, word) {
+
+                        /* `stats` is the object that we'll be building up over time.
+                           `word` is each individual entry in the `matchedWords` array */
+                        if (stats.hasOwnProperty(word)) {
+                            /* `stats` already has an entry for the current `word`.
+                               As a result, let's increment the count for that `word`. */
+                            stats[word] = stats[word] + 1;
+                        } else {
+                            /* `stats` does not yet have an entry for the current `word`.
+                               As a result, let's add a new entry, and set count to 1. */
+                            stats[word] = 1;
+                        }
+
+                        /* Because we are building up `stats` over numerous iterations,
+                           we need to return it for the next pass to modify it. */
+                        return stats;
+
+                    }, {});
+
+                    console.log(counts);
+
+
+
+                }
+            }
+
+            //Doesnt appear to work for vertical bar
+            var format = new Array(
+                "<b>",
+                "</b>",
+                "<",
+                ">",
+                '/\//',
+                '/',
+                ':',
+                '/\|'
+            )
+
+            //This list of stop words taken from 
+            //http://geeklad.com/remove-stop-words-in-javascript
+            var stop_words = new Array(
+                'a',
+                'about',
+                'above',
+                'across',
+                'after',
+                'again',
+                'against',
+                'all',
+                'almost',
+                'alone',
+                'along',
+                'already',
+                'also',
+                'although',
+                'always',
+                'among',
+                'an',
+                'and',
+                'another',
+                'any',
+                'anybody',
+                'anyone',
+                'anything',
+                'anywhere',
+                'are',
+                'area',
+                'areas',
+                'around',
+                'as',
+                'ask',
+                'asked',
+                'asking',
+                'asks',
+                'at',
+                'away',
+                'b',
+                'back',
+                'backed',
+                'backing',
+                'backs',
+                'be',
+                'became',
+                'because',
+                'become',
+                'becomes',
+                'been',
+                'before',
+                'began',
+                'behind',
+                'being',
+                'beings',
+                'best',
+                'better',
+                'between',
+                'big',
+                'both',
+                'but',
+                'by',
+                'c',
+                'came',
+                'can',
+                'cannot',
+                'case',
+                'cases',
+                'certain',
+                'certainly',
+                'clear',
+                'clearly',
+                'come',
+                'could',
+                'd',
+                'did',
+                'differ',
+                'different',
+                'differently',
+                'do',
+                'does',
+                'done',
+                'down',
+                'down',
+                'downed',
+                'downing',
+                'downs',
+                'during',
+                'e',
+                'each',
+                'early',
+                'either',
+                'end',
+                'ended',
+                'ending',
+                'ends',
+                'enough',
+                'even',
+                'evenly',
+                'ever',
+                'every',
+                'everybody',
+                'everyone',
+                'everything',
+                'everywhere',
+                'f',
+                'face',
+                'faces',
+                'fact',
+                'facts',
+                'far',
+                'felt',
+                'few',
+                'find',
+                'finds',
+                'first',
+                'for',
+                'four',
+                'from',
+                'full',
+                'fully',
+                'further',
+                'furthered',
+                'furthering',
+                'furthers',
+                'g',
+                'gave',
+                'general',
+                'generally',
+                'get',
+                'gets',
+                'give',
+                'given',
+                'gives',
+                'go',
+                'going',
+                'good',
+                'goods',
+                'got',
+                'great',
+                'greater',
+                'greatest',
+                'group',
+                'grouped',
+                'grouping',
+                'groups',
+                'h',
+                'had',
+                'has',
+                'have',
+                'having',
+                'he',
+                'her',
+                'here',
+                'herself',
+                'high',
+                'high',
+                'high',
+                'higher',
+                'highest',
+                'him',
+                'himself',
+                'his',
+                'how',
+                'however',
+                'i',
+                'if',
+                'important',
+                'in',
+                'interest',
+                'interested',
+                'interesting',
+                'interests',
+                'into',
+                'is',
+                'it',
+                'its',
+                'itself',
+                'j',
+                'just',
+                'k',
+                'keep',
+                'keeps',
+                'kind',
+                'knew',
+                'know',
+                'known',
+                'knows',
+                'l',
+                'large',
+                'largely',
+                'last',
+                'later',
+                'latest',
+                'least',
+                'less',
+                'let',
+                'lets',
+                'like',
+                'likely',
+                'long',
+                'longer',
+                'longest',
+                'm',
+                'made',
+                'make',
+                'making',
+                'man',
+                'many',
+                'may',
+                'me',
+                'member',
+                'members',
+                'men',
+                'might',
+                'more',
+                'most',
+                'mostly',
+                'mr',
+                'mrs',
+                'much',
+                'must',
+                'my',
+                'myself',
+                'n',
+                'necessary',
+                'need',
+                'needed',
+                'needing',
+                'needs',
+                'never',
+                'new',
+                'new',
+                'newer',
+                'newest',
+                'next',
+                'no',
+                'nobody',
+                'non',
+                'noone',
+                'not',
+                'nothing',
+                'now',
+                'nowhere',
+                'number',
+                'numbers',
+                'o',
+                'of',
+                'off',
+                'often',
+                'old',
+                'older',
+                'oldest',
+                'on',
+                'once',
+                'one',
+                'only',
+                'open',
+                'opened',
+                'opening',
+                'opens',
+                'or',
+                'order',
+                'ordered',
+                'ordering',
+                'orders',
+                'other',
+                'others',
+                'our',
+                'out',
+                'over',
+                'p',
+                'part',
+                'parted',
+                'parting',
+                'parts',
+                'per',
+                'perhaps',
+                'place',
+                'places',
+                'point',
+                'pointed',
+                'pointing',
+                'points',
+                'possible',
+                'present',
+                'presented',
+                'presenting',
+                'presents',
+                'problem',
+                'problems',
+                'put',
+                'puts',
+                'q',
+                'quite',
+                'r',
+                'rather',
+                'really',
+                'right',
+                'right',
+                'room',
+                'rooms',
+                's',
+                'said',
+                'same',
+                'saw',
+                'say',
+                'says',
+                'second',
+                'seconds',
+                'see',
+                'seem',
+                'seemed',
+                'seeming',
+                'seems',
+                'sees',
+                'several',
+                'shall',
+                'she',
+                'should',
+                'show',
+                'showed',
+                'showing',
+                'shows',
+                'side',
+                'sides',
+                'since',
+                'small',
+                'smaller',
+                'smallest',
+                'so',
+                'some',
+                'somebody',
+                'someone',
+                'something',
+                'somewhere',
+                'state',
+                'states',
+                'still',
+                'still',
+                'such',
+                'sure',
+                't',
+                'take',
+                'taken',
+                'than',
+                'that',
+                'the',
+                'their',
+                'them',
+                'then',
+                'there',
+                'therefore',
+                'these',
+                'they',
+                'thing',
+                'things',
+                'think',
+                'thinks',
+                'this',
+                'those',
+                'though',
+                'thought',
+                'thoughts',
+                'three',
+                'through',
+                'thus',
+                'to',
+                'today',
+                'together',
+                'too',
+                'took',
+                'toward',
+                'turn',
+                'turned',
+                'turning',
+                'turns',
+                'two',
+                'u',
+                'under',
+                'until',
+                'up',
+                'upon',
+                'us',
+                'use',
+                'used',
+                'uses',
+                'v',
+                'very',
+                'w',
+                'want',
+                'wanted',
+                'wanting',
+                'wants',
+                'was',
+                'way',
+                'ways',
+                'we',
+                'well',
+                'wells',
+                'went',
+                'were',
+                'what',
+                'when',
+                'where',
+                'whether',
+                'which',
+                'while',
+                'who',
+                'whole',
+                'whose',
+                'why',
+                'will',
+                'with',
+                'within',
+                'without',
+                'work',
+                'worked',
+                'working',
+                'works',
+                'would',
+                'x',
+                'y',
+                'year',
+                'years',
+                'yet',
+                'you',
+                'young',
+                'younger',
+                'youngest',
+                'your',
+                'yours',
+                'z'
+            )
+
+
+
+
+        </script>
+        <!-- Each call can only return 10 results, so additional calls require it to start at a different index ie. 11 to get results 11-20 -->
+        <!-- This currently returns top 30 results  -->
+        <script
+            src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwVNMl6vi4jJ0qKEQAJWeXImSUGqlyqsU&cx=c4bb168513ae765b0&q=java&callback=hndlr">
+            </script>
+        <!-- <script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwVNMl6vi4jJ0qKEQAJWeXImSUGqlyqsU&cx=c4bb168513ae765b0&q=java&callback=hndlr&start=11&num=10">
+             </script>
+             <script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwVNMl6vi4jJ0qKEQAJWeXImSUGqlyqsU&cx=c4bb168513ae765b0&q=java&callback=hndlr&start=21&num=10">
+             </script>
+            -->
+
+
+
+
+
+    </div>
+</body>
+
+</html>
