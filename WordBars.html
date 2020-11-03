@@ -28,9 +28,9 @@
 <body>
 
     <script async src="https://cse.google.com/cse.js?cx=c4bb168513ae765b0"></script>
-    <div id="searchbox" class="gcse-searchbox"></div>
+    <!-- <div id="searchbox" class="gcse-searchbox"></div>
     <div id="leftbox" class="gcse-searchresults" enableAutoComplete="true"></div>
-    <div id="rightbox">
+    <div id="rightbox"> -->
         <h2>WordBar</h2>
 
         <!-- Custom Search JSON API Example -->
@@ -46,7 +46,9 @@
 
                 //Length is 3 
                 //When testing for ease of use
-                for (var i = 0; i < 1; i++) {
+
+                var entireString;
+                for (var i = 0; i < 2; i++) {
 
                     var item = response.items[i];
                     // in production code, item.htmlTitle should have the HTML entities escaped.
@@ -58,6 +60,7 @@
                     // document.getElementById("content").innerHTML += "<br>" + item.link + "<br>";
 
                     string = item.htmlTitle + item.snippet;
+                    entireString = entireString + item.htmlTitle + item.snippet;
                     console.log(string);
 
                     //Lowercasing is one of the simplest and most effective form of text preprocessing.
@@ -115,8 +118,6 @@
                     matchedWords = string.match(pattern);
                     console.log(matchedWords);
 
-
-
                     var counts = matchedWords.reduce(function (stats, word) {
 
                         /* `stats` is the object that we'll be building up over time.
@@ -139,12 +140,47 @@
 
                     console.log(counts);
 
-
-
                 }
-            }
 
-            //Doesnt appear to work for vertical bar
+                //For Entire list
+                entireString = entireString.toLowerCase();
+                    for (j = 0; j < format.length; j++) {
+                        var oldRegEx = new RegExp(format[i], 'g')
+                        entireString = entireString.replace(oldRegEx, '')
+                    }
+                    for (k = 0; k < stop_words.length; k++) {
+                        var oldRegEx = new RegExp("\\b" + stop_words[k] + "\\b", 'g')
+                        entireString = entireString.replace(oldRegEx, '')
+                    }
+                    entireMatchedWords = entireString.match(pattern);
+                    console.log("Total Matched Words")
+                    console.log(entireMatchedWords);
+
+
+                    var counts = entireMatchedWords.reduce(function (stats, word) {
+
+                    /* `stats` is the object that we'll be building up over time.
+                      `word` is each individual entry in the `matchedWords` array */
+                    if (stats.hasOwnProperty(word)) {
+                      /* `stats` already has an entry for the current `word`.
+                     As a result, let's increment the count for that `word`. */
+                       stats[word] = stats[word] + 1;
+                    } else {
+                      /* `stats` does not yet have an entry for the current `word`.
+                     As a result, let's add a new entry, and set count to 1. */
+                      stats[word] = 1;
+                    }       
+
+                    /* Because we are building up `stats` over numerous iterations,
+                     we need to return it for the next pass to modify it. */
+                    return stats;
+
+                    }, {});
+
+                    console.log(counts);
+                    }
+            
+
             var format = new Array(
                 "<[^>]*>",
                 "<",
