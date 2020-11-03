@@ -46,7 +46,7 @@
 
                 //Length is 3 
                 //When testing for ease of use
-                for (var i = 0; i < 3; i++) {
+                for (var i = 0; i < 1; i++) {
 
                     var item = response.items[i];
                     // in production code, item.htmlTitle should have the HTML entities escaped.
@@ -54,10 +54,10 @@
 
                     // Prints title,snippet,link to the html
                     document.getElementById("content").innerHTML += "<br>" + item.htmlTitle;
-                    // document.getElementById("content").innerHTML += "<br>" + item.snippet;
+                    document.getElementById("content").innerHTML += "<br>" + item.snippet;
                     // document.getElementById("content").innerHTML += "<br>" + item.link + "<br>";
 
-                    string = item.htmlTitle;
+                    string = item.htmlTitle + item.snippet;
                     console.log(string);
 
                     //Lowercasing is one of the simplest and most effective form of text preprocessing.
@@ -100,7 +100,7 @@
                     //Removal of these allows for more effective search and topic extraction systems
 
                     for (k = 0; k < stop_words.length; k++) {
-                        var oldRegEx = new RegExp("\\b" + stop_words[i] + "\\b", 'g')
+                        var oldRegEx = new RegExp("\\b" + stop_words[k] + "\\b", 'g')
                         string = string.replace(oldRegEx, '')
 
                     }
@@ -146,8 +146,7 @@
 
             //Doesnt appear to work for vertical bar
             var format = new Array(
-                "<b>",
-                "</b>",
+                "<[^>]*>",
                 "<",
                 ">",
                 '/\//',
@@ -597,7 +596,7 @@
         <!-- Each call can only return 10 results, so additional calls require it to start at a different index ie. 11 to get results 11-20 -->
         <!-- This currently returns top 30 results  -->
         <script
-            src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwVNMl6vi4jJ0qKEQAJWeXImSUGqlyqsU&cx=c4bb168513ae765b0&q=java&callback=hndlr">
+            src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwVNMl6vi4jJ0qKEQAJWeXImSUGqlyqsU&cx=c4bb168513ae765b0&q=multimedia&callback=hndlr">
             </script>
         <!-- <script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyBwVNMl6vi4jJ0qKEQAJWeXImSUGqlyqsU&cx=c4bb168513ae765b0&q=java&callback=hndlr&start=11&num=10">
              </script>
