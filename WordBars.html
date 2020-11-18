@@ -26,8 +26,6 @@
 </head>
 
 <body>
-
-    <script async src="https://cse.google.com/cse.js?cx=c4bb168513ae765b0"></script>
     <!-- <div id="searchbox" class="gcse-searchbox"></div>
     <div id="leftbox" class="gcse-searchresults" enableAutoComplete="true"></div>
     <div id="rightbox"> -->
@@ -36,7 +34,7 @@
     <!-- Custom Search JSON API Example -->
     <!-- Note to self, api key, cx for specific search engine, and query q for results -->
     <div id="contentBox"></div>
-    <div id="histogramBox">Histogram<br></div>
+    <div id="histogramBox"><h2>Histogram</h2><br></div>
     <script>
 
 
@@ -44,10 +42,8 @@
 
             // for (var i = 0; i < response.items.length; i++) {
 
-
-            //Length is 3 
-            //When testing for ease of use
-
+            // iterator is 10 due to the 10 json api limit per request
+            
             var entireString;
             for (var i = 0; i < 10; i++) {
 
@@ -58,7 +54,7 @@
                 // Prints title,snippet,link to the html
                 document.getElementById("contentBox").innerHTML += "<br>" + item.htmlTitle;
                 document.getElementById("contentBox").innerHTML += "<br>" + item.snippet;
-                // document.getElementById("contentBox").innerHTML += "<br>" + item.link + "<br>";
+                document.getElementById("contentBox").innerHTML += "<br>" + item.link.replace(/(http:\/\/[^\s]+|https:\/\/[^\s]+)/g, "<a href='$1'>$1</a>");
                 document.getElementById("contentBox").innerHTML += "<br>";
 
                 string = item.htmlTitle + item.snippet;
@@ -86,6 +82,7 @@
                 // console.log(string);
 
 
+                // var stemmer = require('stemmer')
                 // //Stemming
                 // //Process of reducing inflection in words to their root form.
                 // //Porter stemming algorithm
@@ -183,15 +180,33 @@
 
             console.log(counts);
 
-            // //Sort alphabetically
-            const counts2 = {};
-            Object.keys(counts).sort().forEach(function(key) {
-                counts2[key] = counts[key];
+            //Histogram  
+            //Sort alphabetically
+            // const counts2 = {};
+            // Object.keys(counts).sort().forEach(function(key) {
+            //     counts2[key] = counts[key];
+            // });
+
+            // for(var x in counts2){
+            //     document.getElementById("histogramBox").innerHTML += x + " " + counts2[x] + "<br>";
+            // }
+
+            //Histogram
+            //Sort by value
+            var sortable = [];
+            for(var text in counts){
+                sortable.push([text,counts[text]]);
+            }
+
+            sortable.sort(function(a,b){
+                return b[1] - a[1];
             });
 
-            for(var x in counts2){
-                document.getElementById("histogramBox").innerHTML += x + " " + counts2[x] + "<br>";
+            for(var x in sortable){
+                document.getElementById("histogramBox").innerHTML +=  " " + sortable[x] + "<br>";
             }
+
+            console.log(sortable);
   
         }
 
