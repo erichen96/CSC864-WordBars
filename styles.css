@@ -1,0 +1,17 @@
+#searchbox {
+    float: left;
+    width: 75%;
+}
+
+#contentBox {
+    float: left;
+    background: white;
+    width: 75%;
+    height: 280px;
+}
+
+#histogramBox {
+    float: right;
+    background: white;
+    width: 25%;
+}
