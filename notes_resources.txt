@@ -1,0 +1,6 @@
+Trigger Button on Enter Key
+https://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
+
+Append <Script> Tag to Body
+https://stackoverflow.com/questions/31585832/append-script-tag-to-body/31585920
+https://stackoverflow.com/questions/6432984/how-to-add-a-script-element-to-the-dom-and-execute-its-code
