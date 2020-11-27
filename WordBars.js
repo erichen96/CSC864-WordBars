@@ -1,5 +1,4 @@
 
-
         function hndlr(response) {
 
             // for (var i = 0; i < response.items.length; i++) {
@@ -17,7 +16,7 @@
                 document.getElementById("contentBox").innerHTML += "<br>" + item.htmlTitle;
                 document.getElementById("contentBox").innerHTML += "<br>" + item.snippet;
                 document.getElementById("contentBox").innerHTML += "<br>" + item.link.replace(/(http:\/\/[^\s]+|https:\/\/[^\s]+)/g, "<a href='$1'>$1</a>");
-                document.getElementById("contentBox").innerHTML += "<br>";
+                document.getElementById("contentBox").innerHTML += "<hr>";
 
                 string = item.htmlTitle + item.snippet;
                 entireString = entireString + item.htmlTitle + item.snippet;

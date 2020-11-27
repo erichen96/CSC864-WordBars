@@ -7,11 +7,14 @@
     float: left;
     background: white;
     width: 75%;
-    height: 280px;
+    height: 90vh;
+    overflow-y:scroll;
 }
 
 #histogramBox {
     float: right;
     background: white;
     width: 25%;
+    height: 90vh;
+    overflow-y:scroll;
 }
