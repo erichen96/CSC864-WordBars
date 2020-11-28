@@ -6,7 +6,7 @@ function hndlr(response) {
     // for (var i = 0; i < response.items.length; i++) {
 
     // iterator is 10 due to the 10 json api limit per request
-    // var entireString;
+
     for (var i = 0; i < 10; i++) {
 
         var item = response.items[i];
@@ -80,7 +80,7 @@ function hndlr(response) {
 
 
         // var pattern = /\w+/g,
-        //     // /\w+ matches any alphanumeric character from basic Latin alphabet including uderscore.
+        //     // /\w+ matches any alphanumeric character from basic Latin alphabet including underscore.
         //     // Equivalent to [A-Za-z0-9]. 
         // matchedWords = string.match(pattern);
         // console.log(matchedWords);
@@ -120,7 +120,10 @@ function hndlr(response) {
 
 function histogram(entireString) {
     //Generates histogram from a string of all API calls
+
+    //Lowercasing
     entireString = entireString.toLowerCase();
+    //Noise Removal
     for (j = 0; j < format.length; j++) {
         var oldRegEx = new RegExp(format[i], 'g')
         entireString = entireString.replace(oldRegEx, ' ')
@@ -144,12 +147,16 @@ function histogram(entireString) {
     // // console.log(string);
 
 
-
+    //Stopword Removal
+    //Stop words are a set of commonly used words in a language.
+    //Removal of these allows for more effective search and topic extraction systems
     for (k = 0; k < stop_words.length; k++) {
         var oldRegEx = new RegExp("\\b" + stop_words[k] + "\\b", 'g')
         entireString = entireString.replace(oldRegEx, '')
     }
     var pattern = /\w+/g,
+        // /\w+ matches any alphanumeric character from basic Latin alphabet including underscore.
+        // Equivalent to [A-Za-z0-9].
         entireMatchedWords = entireString.match(pattern);
     // console.log("Total Matched Words")
     // console.log(entireMatchedWords);
