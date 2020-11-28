@@ -4,3 +4,32 @@ https://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascrip
 Append <Script> Tag to Body
 https://stackoverflow.com/questions/31585832/append-script-tag-to-body/31585920
 https://stackoverflow.com/questions/6432984/how-to-add-a-script-element-to-the-dom-and-execute-its-code
+
+Add text to Textarea from Button
+https://www.w3schools.com/jsref/dom_obj_pushbutton.asp
+https://stackoverflow.com/questions/17816924/how-to-add-text-to-textarea-when-user-clicks-a-button
+https://stackoverflow.com/questions/7707074/creating-dynamic-button-with-click-event-in-javascript
+https://stackoverflow.com/questions/31960980/passing-string-parameter-in-javascript-function
+
+Notes on onClick functions
+https://stackoverflow.com/questions/3910736/how-to-call-multiple-javascript-functions-in-onclick-event
+
+
+Note on HeatMap functions
+https://stackoverflow.com/questions/6966114/html-colored-rating-bar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
