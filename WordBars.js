@@ -22,7 +22,7 @@ function hndlr(response) {
 
 
         entireString = entireString + item.htmlTitle + item.snippet;
-        tfidfString = item.snippet;
+        tfidfString = item.htmlTitle + item.snippet;
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         //Comments below is an example of the text processing using only 1 API call
         //
