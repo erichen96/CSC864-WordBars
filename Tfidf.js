@@ -5,7 +5,7 @@ var tfidf = new TfIdf();
 tfidf.addDocument(tfidfString);
 
 
-tfidf.tfidfs('node ruby', function(i, measure) {
+tfidf.tfidfs(userQuery, function(i, measure) {
     console.log('document #' + i + ' is ' + measure);
 });
 
@@ -34,3 +34,4 @@ function histogram(tfidfString) {
         document.getElementById("tfidfgramBox").innerHTML += "<button id = " + sortable[x][0] + " onclick = input(\"" + sortable[x][0] + "\")>" + sortable[x][0] + "</button";
         document.getElementById("tfidfgramBox").innerHTML += " " + sortable[x][1] + "<br>";
     }
+  }
