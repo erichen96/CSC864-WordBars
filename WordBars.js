@@ -1,6 +1,7 @@
 var entireString;
 var maxCalls = 2;
 var currentNumberOfCalls = 0;
+
 function hndlr(response) {
 
     // for (var i = 0; i < response.items.length; i++) {
@@ -228,6 +229,17 @@ var format = new Array(
     '/\|',
     ','
 )
+
+var natural = require('natural');
+var TfIdf = natural.TfIdf;
+var tfidf = new TfIdf();
+
+tfidf.addDocument(String);
+
+
+tfidf.tfidfs('node ruby', function(i, measure) {
+    console.log('document #' + i + ' is ' + measure);
+});
 
 //This list of stop words taken from 
 //http://geeklad.com/remove-stop-words-in-javascript
