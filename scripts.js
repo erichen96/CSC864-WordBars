@@ -13,6 +13,7 @@ function mySearchFunction() {
     //Clears current innerHTML in "contentBox/histogram" for new search query
     document.getElementById("contentBox").innerHTML = "";
     document.getElementById("histogramBox").innerHTML = "";
+    document.getElementById("tfidfBox").innerHTML = "";
 
     //Takes userQuery and stores into variable for API call
     userQuery = document.getElementById('formValueId').value;

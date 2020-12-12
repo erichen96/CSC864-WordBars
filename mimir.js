@@ -6,3 +6,4 @@ tfidf.addDocument(String);
 
 
 console.log(tfidf.tfidf('node', 0));
+
