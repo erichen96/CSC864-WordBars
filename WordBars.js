@@ -665,5 +665,3 @@ var stop_words = new Array(
     'yours',
     'z'
 )
-
-

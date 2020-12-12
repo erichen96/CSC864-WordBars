@@ -6,12 +6,20 @@
 #contentBox {
     float: left;
     background: white;
-    width: 75%;
+    width: 50%;
     height: 90vh;
     overflow-y:scroll;
 
     /* border: 1px solid rgba(0, 0, 0, 0.125); */
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075); 
+}
+
+#tfidfBox {
+    float: right;
+    background: white;
+    width: 25%;
+    height: 90vh;
+    overflow-y:scroll;
 }
 
 #histogramBox {
