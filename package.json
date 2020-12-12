@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "natural": "^2.1.5"
+    "natural": "^2.1.5",
+    "requirejs": "^2.3.6"
   }
 }
